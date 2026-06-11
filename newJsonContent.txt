@@ -1,0 +1,9 @@
+{    
+    "employeeid":
+    "locationid": 
+    "scheduleStart":
+    "scheduleEnd":
+    "clockIn":
+    "clockOut":
+    "managerApproval": 
+}
