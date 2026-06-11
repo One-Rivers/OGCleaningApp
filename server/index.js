@@ -9,7 +9,13 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI); /* is defined in seperate file to avoid hardcoding sensitive info */
+const db = mongoose.connection; // Log successful connection
+db.once('open', () => {
+    console.log('Connected to MongoDB successfully');
+});
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // POST /login — check employee credentials against MongoDB
 app.post("/login", async (req, res) => {
@@ -25,7 +31,8 @@ app.post("/login", async (req, res) => {
                 id: employee._id,
                 name: employee.name,
                 employeeId: employee.employeeId,
-                role: employee.role
+                role: employee.role,
+                certification: employee.certification
             }
         });
     } catch (error) {
