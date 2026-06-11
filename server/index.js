@@ -63,7 +63,32 @@ app.post("/createShifts", async (req, res) => {
         res.status(500).json({ error: "An error occurred while creating shift" });
     }
 });
+app.delete("/deleteShift/:id", async (req, res) => {
+    try {
+        const deleted = await ShiftModel.findByIdAndDelete(req.params.id);
+        if (!deleted) {
+            return res.status(404).json({ error: 'Shift not found' });
+        }
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error deleting shift:", error);
+        res.status(500).json({ error: "An error occurred while deleting shift" });
+    }
+});
 
+// PATCH /updateShift/:id — update fields on a shift (used by Punch In/Out)
+app.patch("/updateShift/:id", async (req, res) => {
+    try {
+        const updated = await ShiftModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updated) {
+            return res.status(404).json({ error: 'Shift not found' });
+        }
+        res.json(updated);
+    } catch (error) {
+        console.error("Error updating shift:", error);
+        res.status(500).json({ error: "An error occurred while updating shift" });
+    }
+});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Scheduler server is running on port ${PORT} and moving forward!`);
