@@ -1,1 +1,299 @@
-# OGCleaningApp
+# CIS 350 Project
+
+## OG Cleaning Scheduler
+
+---
+
+## Team Members
+
+- Juan Rios
+- Juan Gonzalez
+- Jessa
+
+---
+
+## Course Information
+
+**Course:** CIS 350 – Software Engineering  
+**Semester:** Summer 2026  
+**Project:** OG Cleaning Scheduler
+
+---
+
+## Important Links
+
+
+
+### [JIRA Board](https://your-jira-linkruh-roh)
+
+### [Video Demonstration](https://video-here-lmao)
+
+
+
+---
+
+# 1. Abstract
+
+Scheduling employees is a critical task for organizations that operate using shift-based work. Many businesses continue to rely on spreadsheets, text messages, or paper schedules, which can result in confusion, missed shifts, and communication issues.
+
+The purpose of the **OG Cleaning Scheduler** is to provide a centralized scheduling system that allows employees to view their schedules while enabling managers to create, modify, and manage employee shifts. The system also includes a punch-in and punch-out feature with location verification to ensure employees are present at their assigned worksite before beginning work.
+
+This application streamlines workforce management, improves communication, and reduces scheduling conflicts.
+
+---
+
+# 2. Introduction
+
+Workforce scheduling can become increasingly difficult as businesses grow and employee availability changes. Employees require an easy way to view upcoming shifts while managers need tools to efficiently manage schedules and staffing requirements.
+
+The **OG Cleaning Scheduler** was developed using Flutter, allowing deployment across multiple mobile platforms. The application provides role-based functionality where employees can access schedules and track work hours while managers can create, edit, and delete shifts.
+
+The primary goal of this project is to simplify scheduling operations while providing an intuitive user experience.
+
+---
+
+# 3. Architectural Design
+
+The system follows a client-server architecture. Users interact with the mobile application which communicates with a backend server through REST API requests. Scheduling data is stored centrally and updated in real time.
+
+### Figure 1: Architecture Diagram
+
+**[PLACEHOLDER – INSERT SYSTEM ARCHITECTURE DIAGRAM HERE]**
+
+---
+
+## 3.1 Class Diagram
+
+The class diagram illustrates the relationships between the primary objects in the application.
+
+Major classes include:
+
+- Employee
+- Manager
+- Shift
+- Schedule
+- PunchRecord
+- AuthenticationService
+
+### Figure 2: Class Diagram
+
+**[PLACEHOLDER – INSERT CLASS DIAGRAM HERE]**
+
+---
+
+## 3.2 Use Case Diagram
+
+The system contains two primary actors:
+
+### Employee
+
+- Login
+- View Schedule
+- View Shift Details
+- Punch In
+- Punch Out
+
+### Manager
+
+- Login
+- Create Shift
+- Modify Shift
+- Delete Shift
+- View Employee Status
+
+### Figure 3: Use Case Diagram
+
+**[PLACEHOLDER – INSERT USE CASE DIAGRAM HERE]**
+
+---
+
+## 3.3 Sequence Diagram
+
+The primary workflows include:
+
+### Employee Punch-In
+
+1. Employee selects Punch In.
+2. Application verifies GPS location.
+3. Request is sent to the server.
+4. Punch record is created.
+5. Confirmation is returned to the employee.
+
+### Manager Schedule Modification
+
+1. Manager selects a shift.
+2. Shift information is updated.
+3. Changes are submitted.
+4. Database is updated.
+5. Updated schedule is displayed.
+
+### Figure 4: Sequence Diagram
+
+**[PLACEHOLDER – INSERT SEQUENCE DIAGRAM HERE]**
+
+---
+
+## 3.4 Communication Diagram
+
+Communication diagrams illustrate how system components exchange information during scheduling and punch operations.
+
+### Figure 5: Communication Diagram
+
+**[PLACEHOLDER – INSERT COMMUNICATION DIAGRAM HERE]**
+
+---
+
+# 4. User Guide / Implementation
+
+## 4.1 Login Page
+
+Users begin by logging into the system using their employee credentials.
+
+### Figure 6: Login Screen
+
+**[PLACEHOLDER – INSERT LOGIN SCREENSHOT HERE]**
+
+---
+
+## 4.2 Employee Dashboard
+
+The dashboard provides employees with access to their schedules and punch functions.
+
+### Features
+
+- View Weekly Schedule
+- View Upcoming Shifts
+- Punch In
+- Punch Out
+
+### Figure 7: Employee Dashboard
+
+**[PLACEHOLDER – INSERT DASHBOARD SCREENSHOT HERE]**
+
+---
+
+## 4.3 Punch System
+
+The punch system records employee attendance and verifies that the employee is physically located at the assigned worksite.
+
+### Punch In Process
+
+- Verify GPS location
+- Record start time
+- Update employee status
+
+### Punch Out Process
+
+- Record end time
+- Calculate hours worked
+- Save attendance record
+
+### Figure 8: Punch System
+
+**[PLACEHOLDER – INSERT PUNCH SYSTEM SCREENSHOT HERE]**
+
+---
+
+## 4.4 Schedule Management
+
+Managers have access to scheduling controls that allow them to maintain employee schedules.
+
+### Create Shift
+
+Managers can create new shifts and assign employees.
+
+### Edit Shift
+
+Managers can modify dates, times, and assignments.
+
+### Delete Shift
+
+Managers can remove unnecessary or canceled shifts.
+
+### Figure 9: Schedule Management
+
+**[PLACEHOLDER – INSERT SCHEDULE MANAGEMENT SCREENSHOT HERE]**
+
+---
+
+# 5. Risk Analysis and Retrospective
+
+Several risks were identified during development.
+
+## Security Risks
+
+- Unauthorized access to scheduling functions
+- Improper user authentication
+- Exposure of employee scheduling information
+
+## Technical Risks
+
+- GPS location inaccuracies
+- Server communication failures
+- Mobile device compatibility issues
+
+## Mitigation Strategies
+
+- Role-based access control
+- Authentication validation
+- Error handling and recovery mechanisms
+- Secure API communication
+
+## Future Improvements
+
+- Push notifications
+- Shift swap requests
+- Employee messaging system
+- Timecard reporting
+- Payroll integration
+- Administrative analytics dashboard
+
+---
+
+# 6. Conclusion
+
+The OG Cleaning Scheduler successfully provides a centralized scheduling solution for employees and managers. The system simplifies schedule management, improves communication, and introduces location-verified attendance tracking.
+
+Future development will focus on additional reporting tools, enhanced communication features, and cloud-based scalability.
+
+---
+
+# 7. Walkthrough
+
+### Video Demonstration
+
+[INSERT VIDEO LINK HERE]
+
+---
+
+# Technologies Used
+
+- Flutter
+- Dart
+- REST API
+- Geolocator
+- HTTP
+- Google Fonts
+
+---
+
+# Repository Structure
+
+```text
+lib/
+├── components/
+│   ├── ChangeScheduleButton.dart
+│   ├── EmployeeStatusList.dart
+│   ├── PunchButton.dart
+│   ├── SignInButton.dart
+│   └── WeekScheduleLayout.dart
+│
+├── pages/
+│   ├── login.dart
+│   ├── punch.dart
+│   ├── modifyschedule.dart
+│   └── Locationpopup.dart
+│
+├── shift_model.dart
+└── main.dart
+```
