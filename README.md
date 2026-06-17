@@ -75,7 +75,7 @@ Major classes include:
 
 ### Figure 2: Class Diagram
 
-**[PLACEHOLDER – INSERT CLASS DIAGRAM HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/902c0b4e75c5dec9b0618a1736b6f92969868332/Images/Class%20diagram.png)
 
 ---
 
@@ -101,7 +101,7 @@ The system contains two primary actors:
 
 ### Figure 3: Use Case Diagram
 
-**[PLACEHOLDER – INSERT USE CASE DIAGRAM HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/902c0b4e75c5dec9b0618a1736b6f92969868332/Images/Use%20Case.png)
 
 ---
 
@@ -127,7 +127,7 @@ The primary workflows include:
 
 ### Figure 4: Sequence Diagram
 
-**[PLACEHOLDER – INSERT SEQUENCE DIAGRAM HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/902c0b4e75c5dec9b0618a1736b6f92969868332/Images/Simple%20sequence.png)
 
 ---
 
@@ -137,7 +137,7 @@ Communication diagrams illustrate how system components exchange information dur
 
 ### Figure 5: Communication Diagram
 
-**[PLACEHOLDER – INSERT COMMUNICATION DIAGRAM HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/902c0b4e75c5dec9b0618a1736b6f92969868332/Images/Communication.png)
 
 ---
 
