@@ -194,11 +194,14 @@ The punch system records employee attendance and verifies that the employee is p
 
 ## 4.4 Schedule Management
 
+
 Managers have access to scheduling controls that allow them to maintain employee schedules.
 
 ### Create Shift
 
 Managers can create new shifts and assign employees.
+
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/4747433282d9f3401f08d01ccb01755245fdb140/Images/New%20shift.jpg)
 
 ### Edit Shift
 
@@ -208,9 +211,8 @@ Managers can modify dates, times, and assignments.
 
 Managers can remove unnecessary or canceled shifts.
 
-### Figure 9: Schedule Management
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/4747433282d9f3401f08d01ccb01755245fdb140/Images/View%20shifts.jpg)
 
-**[PLACEHOLDER – INSERT SCHEDULE MANAGEMENT SCREENSHOT HERE]**
 
 ---
 
