@@ -149,7 +149,7 @@ Users begin by logging into the system using their employee credentials.
 
 ### Figure 6: Login Screen
 
-**[PLACEHOLDER – INSERT LOGIN SCREENSHOT HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/9fb75252331eb8c3593041290619e3374e705f85/Images/Login.png)
 
 ---
 
@@ -166,7 +166,7 @@ The dashboard provides employees with access to their schedules and punch functi
 
 ### Figure 7: Employee Dashboard
 
-**[PLACEHOLDER – INSERT DASHBOARD SCREENSHOT HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/9fb75252331eb8c3593041290619e3374e705f85/Images/Schedule.png)
 
 ---
 
@@ -188,7 +188,7 @@ The punch system records employee attendance and verifies that the employee is p
 
 ### Figure 8: Punch System
 
-**[PLACEHOLDER – INSERT PUNCH SYSTEM SCREENSHOT HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/9fb75252331eb8c3593041290619e3374e705f85/Images/Punched%20in.png)
 
 ---
 
