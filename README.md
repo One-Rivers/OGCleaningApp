@@ -8,7 +8,7 @@
 
 - Juan Rios
 - Juan Gonzalez
-- Jessa
+- Jessa Gibson
 
 ---
 
@@ -34,21 +34,19 @@
 
 # 1. Abstract
 
-Scheduling employees is a critical task for organizations that operate using shift-based work. Many businesses continue to rely on spreadsheets, text messages, or paper schedules, which can result in confusion, missed shifts, and communication issues.
+Scheduling employees is one of the most important jobs for businesses that use a shift-based system. Most businesses are still using spreadsheets, text messages or even paper schedules to manage employee shifts, causing some problems as confusion and missed shifts and lack of communication between manager and employee.
 
-The purpose of the **OG Cleaning Scheduler** is to provide a centralized scheduling system that allows employees to view their schedules while enabling managers to create, modify, and manage employee shifts. The system also includes a punch-in and punch-out feature with location verification to ensure employees are present at their assigned worksite before beginning work.
-
-This application streamlines workforce management, improves communication, and reduces scheduling conflicts.
+**OG Cleaning Scheduler** is a centralized system which makes it possible for employees to see their schedules as it gives manager ability to generate, edit and manage all employee shifts. It also enables employees to punch in and out with location verification so that employee is in the work site before punching in for the work.
 
 ---
 
 # 2. Introduction
 
-Workforce scheduling can become increasingly difficult as businesses grow and employee availability changes. Employees require an easy way to view upcoming shifts while managers need tools to efficiently manage schedules and staffing requirements.
+It can be progressively hard to schedule shifts as a company grows and availability of staff shifts. Staff members need to know what their next scheduled shifts are going to be while managers need to efficiently allocate shifts to their staff and fill their staff needs.
 
-The **OG Cleaning Scheduler** was developed using Flutter, allowing deployment across multiple mobile platforms. The application provides role-based functionality where employees can access schedules and track work hours while managers can create, edit, and delete shifts.
+The **OG Cleaning Scheduler** has been built in Flutter allowing the ability for this application to run across any mobile devices. With role based permissions the staff members have the ability to view schedules and time of work and managers can edit, add and delete their own work shifts.
 
-The primary goal of this project is to simplify scheduling operations while providing an intuitive user experience.
+This project is being implemented to make scheduling simple and easy for all users.
 
 ---
 
