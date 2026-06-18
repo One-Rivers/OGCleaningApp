@@ -56,7 +56,7 @@ The system follows a client-server architecture. Users interact with the mobile 
 
 ### Figure 1: Architecture Diagram
 
-**[PLACEHOLDER – INSERT SYSTEM ARCHITECTURE DIAGRAM HERE]**
+![image alt](https://github.com/One-Rivers/OGCleaningApp/blob/783df31a29f67e7d37f5257fab5a272c143bfed3/Images/Architecture.png)
 
 ---
 
