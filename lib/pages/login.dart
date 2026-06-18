@@ -95,7 +95,7 @@ class _SignInFiveState extends State<SignInFive> {
             colors: [
               Color(0xFF000000), // Black
               Color(0xFF000000), // Still black — holds until 50%
-              Color(0xFF2D545E), // Sand tan at the bottom
+              Color(0xFFE1B382), // Sand tan at the bottom
             ],
             stops: [0.0, 0.5, 1.0],
           ),
@@ -185,8 +185,7 @@ class _SignInFiveState extends State<SignInFive> {
       style: GoogleFonts.inter(
           fontSize: 23.12, color: Colors.white, letterSpacing: 2.0),
       children: const [
-        TextSpan(
-            text: 'LOG IN ', style: TextStyle(fontWeight: FontWeight.w800)),
+        TextSpan(text: 'LOGIN', style: TextStyle(fontWeight: FontWeight.w800)),
         TextSpan(
             text: 'PAGE',
             style: TextStyle(

@@ -70,9 +70,7 @@ class _PunchPageState extends State<PunchPage> {
       final response = await http.patch(
         Uri.parse('$baseUrl/updateShift/${shift.id}'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(punchingIn
-            ? {'clockIn': true, 'clockOut': false}
-            : {'clockOut': true}),
+        body: jsonEncode(punchingIn ? {'clockIn': true} : {'clockOut': true}),
       );
       if (!mounted) return;
       if (response.statusCode == 200) {

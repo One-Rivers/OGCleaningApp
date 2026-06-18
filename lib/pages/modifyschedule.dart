@@ -173,25 +173,9 @@ class AddShiftDialog extends StatefulWidget {
 class _AddShiftDialogState extends State<AddShiftDialog> {
   final _formKey = GlobalKey<FormState>();
   final _empIdCtrl = TextEditingController();
-  String? _selectedLocation;
-  List<dynamic> _locations = [];
+  final _locationCtrl = TextEditingController();
   DateTime? _start, _end;
   bool _submitting = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchLocations();
-  }
-
-  Future<void> _fetchLocations() async {
-    try {
-      final response = await http.get(Uri.parse('$baseUrl/getLocations'));
-      if (response.statusCode == 200 && mounted) {
-        setState(() => _locations = jsonDecode(response.body));
-      }
-    } catch (_) {}
-  }
 
   Future<void> _pickDateTime(bool isStart) async {
     final date = await showDatePicker(
@@ -222,7 +206,7 @@ class _AddShiftDialogState extends State<AddShiftDialog> {
     setState(() => _submitting = true);
     await widget.onSubmit(Shift(
       employeeId: int.parse(_empIdCtrl.text.trim()),
-      locationId: _selectedLocation!,
+      locationId: _locationCtrl.text.trim(),
       scheduleStart: _start!,
       scheduleEnd: _end!,
     ));
@@ -247,17 +231,13 @@ class _AddShiftDialogState extends State<AddShiftDialog> {
                   validator: (v) =>
                       (v == null || v.isEmpty) ? 'Required' : null),
               const SizedBox(height: 12),
-              DropdownButtonFormField<String>(
-                value: _selectedLocation,
-                decoration: const InputDecoration(
-                    labelText: 'Location', prefixIcon: Icon(Icons.location_on)),
-                items: _locations.map<DropdownMenuItem<String>>((loc) {
-                  return DropdownMenuItem(
-                      value: loc['name'], child: Text(loc['name']));
-                }).toList(),
-                onChanged: (v) => setState(() => _selectedLocation = v),
-                validator: (v) => v == null ? 'Required' : null,
-              ),
+              TextFormField(
+                  controller: _locationCtrl,
+                  decoration: const InputDecoration(
+                      labelText: 'Location ID',
+                      prefixIcon: Icon(Icons.location_on)),
+                  validator: (v) =>
+                      (v == null || v.isEmpty) ? 'Required' : null),
               const SizedBox(height: 16),
               ListTile(
                   contentPadding: EdgeInsets.zero,

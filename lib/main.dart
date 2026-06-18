@@ -8,7 +8,6 @@ import 'shift_model.dart';
 import 'components/WeekScheduleLayout.dart';
 import 'components/PunchButton.dart';
 import 'components/ChangeScheduleButton.dart';
-import 'components/EmployeeStatusList.dart';
 
 void main() => runApp(const MyApp());
 
@@ -130,10 +129,7 @@ class _ShiftSchedulerPageState extends State<ShiftSchedulerPage> {
         ),
         // Sun–Sat columns with each employee's shifts
         WeekScheduleLayout(shifts: _shifts),
-        // Manager-only team status list (regular employees just get empty space here)
-        Expanded(
-          child: EmployeeStatusList(employee: widget.employee, shifts: _shifts),
-        ),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
