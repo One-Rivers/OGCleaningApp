@@ -24,9 +24,9 @@
 
 
 
-### [JIRA Board](https://your-jira-linkruh-roh)
+### [JIRA Board](https://mail-team-r0mlyibv.atlassian.net/jira/software/projects/KAN/boards/3?atlOrigin=eyJpIjoiOGU0YTQ0ZjM0N2JhNGQwZmFmN2QzMzBjNTYyN2YwOTEiLCJwIjoiaiJ9)
 
-### [Video Demonstration](https://video-here-lmao)
+### [Video Demonstration](https://drive.google.com/file/d/1j7ops5Cn0KWooUO3X2Wy5hvypLcZQjAg/view?usp=drive_link)
 
 
 
@@ -255,14 +255,6 @@ Several risks were identified during development.
 The OG Cleaning Scheduler successfully provides a centralized scheduling solution for employees and managers. The system simplifies schedule management, improves communication, and introduces location-verified attendance tracking.
 
 Future development will focus on additional reporting tools, enhanced communication features, and cloud-based scalability.
-
----
-
-# 7. Walkthrough
-
-### Video Demonstration
-
-[INSERT VIDEO LINK HERE]
 
 ---
 
