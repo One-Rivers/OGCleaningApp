@@ -26,7 +26,7 @@
 
 ### [JIRA Board](https://mail-team-r0mlyibv.atlassian.net/jira/software/projects/KAN/boards/3?atlOrigin=eyJpIjoiOGU0YTQ0ZjM0N2JhNGQwZmFmN2QzMzBjNTYyN2YwOTEiLCJwIjoiaiJ9)
 
-### [Video Demonstration](https://drive.google.com/file/d/1j7ops5Cn0KWooUO3X2Wy5hvypLcZQjAg/view?usp=drive_link)
+### [Video Demonstration](https://drive.google.com/file/d/1CTwie_CErVDDLI97atO_MIKfbVOvPFVf/view?usp=sharing)
 
 
 
