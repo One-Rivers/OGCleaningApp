@@ -2,7 +2,7 @@
    Juan Rios
    Part I:  HC-SR04 proximity sensor, TIM3 input capture measures the echo, prints distance every 2 sec
    Part II: LED on TIM2 PWM gets brighter/dimmer with distance, blinks at 2Hz under 1 inch
-   Wiring:  TRIG -> PA1, ECHO -> level shifter -> PA6, LED + resistor -> PA5 (D13), sensor on 5V
+   Wiring:  TRIG -> PA1, ECHO -> level shifter -> PA6, LED1C (D1) or LED3C (D3) -> PA5, sensor on 5V
 */
 #include "stm32f4xx.h"
 #include <stdio.h>

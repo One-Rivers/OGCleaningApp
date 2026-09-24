@@ -100,6 +100,7 @@ void LED_PWM_init(void){
     TIM2->CCMR1 = (6<<4)|(1<<3);									/* PWM mode 1 + preload so duty changes dont glitch*/
     TIM2->CCR1 = 0;													/* LED off to start*/
     TIM2->CCER |= 1;												/* CH1 output on*/
+    if(LED_Active_Low){TIM2->CCER |= 2;}							/* invert the output so 100% still means full bright*/
     TIM2->CR1 = 1;													/* go*/
 }
 
