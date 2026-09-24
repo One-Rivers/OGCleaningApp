@@ -50,13 +50,14 @@ uint8_t Hex2Bit(uint32_t hex_num){
 }
 
 /***| Trigger_init(void) |*************************************************************************************************************************************************************/
-/* PA1 as a regular push pull output, starts low so the sensor isnt triggered on boot.
+/* PA1 as a regular push pull output. Parks TRIG low at the sensor so it isnt triggered on boot,
+   with the inverting shifter that means PA1 actually sits HIGH.
 **************************************************************************************************************************************************************************************/
 void Trigger_init(void){
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;							/* Port A clock on*/
     GPIOA->MODER &= ~(uint32_t)(3<<(2*Hex2Bit(TRIG)));				/* clear PA1 mode*/
     GPIOA->MODER |=  (uint32_t)(1<<(2*Hex2Bit(TRIG)));				/* PA1 output*/
-    GPIOA->ODR   &= ~TRIG;											/* start low*/
+    Trig_Low;														/* sensor side starts low*/
 }
 
 /***| Echo_Capture_init(void) |********************************************************************************************************************************************************/
@@ -106,12 +107,13 @@ void LED_PWM_init(void){
 
 /***| Send_Trigger(void) |*************************************************************************************************************************************************************/
 /* Clears the done flag then gives the sensor its 10us high pulse so it sends out a ping.
+   Trig_High/Trig_Low already account for the 2N7000 flipping it, so PA1 really pulses LOW here.
 **************************************************************************************************************************************************************************************/
 void Send_Trigger(void){
     Echo_Done = 0;													/* forget the last reading*/
-    GPIOA->ODR |= TRIG;												/* high*/
+    Trig_High;														/* high at the sensor*/
     Systick_us_delay(10);											/* 10us, what the sensor wants*/
-    GPIOA->ODR &= ~TRIG;											/* low, ping is out*/
+    Trig_Low;														/* low, ping is out*/
 }
 
 /***| Wait_For_Echo(void) |************************************************************************************************************************************************************/
@@ -169,17 +171,18 @@ void LED_Proximity(float inches, uint8_t *blinkptr){
 }
 
 /***| TIM3_IRQHandler(void) |**********************************************************************************************************************************************************/
-/* Runs on every echo edge. If the pin is high it was the rising edge so save the start, if it's
-   low it was the falling edge so width = end - start. The & 0xFFFF handles the counter wrapping.
+/* Runs on every echo edge. If ECHO is high it was the start of the pulse so save it, if it's low
+   the pulse is over so width = end - start. The & 0xFFFF handles the counter wrapping.
+   Echo_Is_High undoes the 2N7000 flip, with the inverter PA6 goes LOW while the echo is high.
 **************************************************************************************************************************************************************************************/
 void TIM3_IRQHandler(void){
     uint32_t current;
     if(TIM3->SR & TIM_SR_CC1IF){
         current = TIM3->CCR1;										/* reading CCR1 clears CC1IF too*/
-        if(GPIOA->IDR & ECHO){										/* rising edge*/
+        if(Echo_Is_High){												/* echo just started*/
             Echo_Start = current;
         }
-        else{														/* falling edge, we got it*/
+        else{														/* echo ended, we got it*/
             Echo_Width = (current - Echo_Start) & 0xFFFF;
             Echo_Done = 1;
         }

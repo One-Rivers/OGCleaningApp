@@ -12,6 +12,20 @@
 #define LED  (uint32_t) 0x20											/* PA5, TIM2 CH1 PWM, jumper LED1C (blue D1) or LED3C (red D3) to this, the glowy one*/
 #define ECHO (uint32_t) 0x40											/* PA6, TIM3 CH1 input capture, 5V goes through the level shifter first*/
 
+/*2N7000 level shifter
+****************************************************************************************************************************************************************************************/
+#define Shifter_Inverts 1												/* 1 = each 2N7000 is an inverter (signal on gate, source to GND, drain pulled up)
+															   0 = gate on 3V3 bidirectional shifter, nothing gets flipped*/
+#if Shifter_Inverts
+#define Trig_High (GPIOA->ODR &= ~TRIG)									/* PA1 low -> Q1 off -> TRIG pulled up to 5V*/
+#define Trig_Low  (GPIOA->ODR |=  TRIG)									/* PA1 high -> Q1 on -> TRIG yanked to GND*/
+#define Echo_Is_High ((GPIOA->IDR & ECHO) == 0)							/* ECHO high -> Q2 on -> PA6 reads low, so low means high lol*/
+#else
+#define Trig_High (GPIOA->ODR |=  TRIG)
+#define Trig_Low  (GPIOA->ODR &= ~TRIG)
+#define Echo_Is_High ((GPIOA->IDR & ECHO) != 0)
+#endif
+
 /*Numbers we keep reusing
 ****************************************************************************************************************************************************************************************/
 #define LED_Active_Low 0												/* flip to 1 if LEDxC is the cathode side and the LED acts backwards*/
