@@ -14,12 +14,13 @@
 
 /*2N7000 level shifter
 ****************************************************************************************************************************************************************************************/
-#define Shifter_Inverts 1												/* 1 = each 2N7000 is an inverter (signal on gate, source to GND, drain pulled up)
-															   0 = gate on 3V3 bidirectional shifter, nothing gets flipped*/
+#define Shifter_Inverts 0												/* 0 = ECHO goes through Q1 then Q2, Q2 flips it right back so PA6 just follows ECHO,
+															   TRIG comes straight off PA1 since 3.3V is plenty for the sensor
+															   1 = only one 2N7000 inverter per line, these macros flip it back in code instead*/
 #if Shifter_Inverts
-#define Trig_High (GPIOA->ODR &= ~TRIG)									/* PA1 low -> Q1 off -> TRIG pulled up to 5V*/
-#define Trig_Low  (GPIOA->ODR |=  TRIG)									/* PA1 high -> Q1 on -> TRIG yanked to GND*/
-#define Echo_Is_High ((GPIOA->IDR & ECHO) == 0)							/* ECHO high -> Q2 on -> PA6 reads low, so low means high lol*/
+#define Trig_High (GPIOA->ODR &= ~TRIG)									/* PA1 low -> inverter off -> TRIG pulled up to 5V*/
+#define Trig_Low  (GPIOA->ODR |=  TRIG)									/* PA1 high -> inverter on -> TRIG yanked to GND*/
+#define Echo_Is_High ((GPIOA->IDR & ECHO) == 0)							/* ECHO high -> inverter on -> PA6 reads low, so low means high lol*/
 #else
 #define Trig_High (GPIOA->ODR |=  TRIG)
 #define Trig_Low  (GPIOA->ODR &= ~TRIG)

@@ -51,7 +51,7 @@ uint8_t Hex2Bit(uint32_t hex_num){
 
 /***| Trigger_init(void) |*************************************************************************************************************************************************************/
 /* PA1 as a regular push pull output. Parks TRIG low at the sensor so it isnt triggered on boot,
-   with the inverting shifter that means PA1 actually sits HIGH.
+   if Shifter_Inverts is 1 that means PA1 actually sits HIGH.
 **************************************************************************************************************************************************************************************/
 void Trigger_init(void){
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;							/* Port A clock on*/
@@ -107,7 +107,7 @@ void LED_PWM_init(void){
 
 /***| Send_Trigger(void) |*************************************************************************************************************************************************************/
 /* Clears the done flag then gives the sensor its 10us high pulse so it sends out a ping.
-   Trig_High/Trig_Low already account for the 2N7000 flipping it, so PA1 really pulses LOW here.
+   Trig_High/Trig_Low handle Shifter_Inverts, with the current wiring PA1 just pulses high like normal.
 **************************************************************************************************************************************************************************************/
 void Send_Trigger(void){
     Echo_Done = 0;													/* forget the last reading*/
@@ -173,7 +173,7 @@ void LED_Proximity(float inches, uint8_t *blinkptr){
 /***| TIM3_IRQHandler(void) |**********************************************************************************************************************************************************/
 /* Runs on every echo edge. If ECHO is high it was the start of the pulse so save it, if it's low
    the pulse is over so width = end - start. The & 0xFFFF handles the counter wrapping.
-   Echo_Is_High undoes the 2N7000 flip, with the inverter PA6 goes LOW while the echo is high.
+   Echo_Is_High handles Shifter_Inverts, with Q1 + Q2 back to back PA6 just follows ECHO.
 **************************************************************************************************************************************************************************************/
 void TIM3_IRQHandler(void){
     uint32_t current;

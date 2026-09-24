@@ -2,10 +2,11 @@
    Juan Rios
    Part I:  HC-SR04 proximity sensor, TIM3 input capture measures the echo, prints distance every 2 sec
    Part II: LED on TIM2 PWM gets brighter/dimmer with distance, blinks at 2Hz under 1 inch
-   Wiring:  PA1 -> Q1 gate, Q1 drain -> TRIG (10k up to 5V)
-            ECHO -> Q2 gate, Q2 drain -> PA6 (10k up to 3V3), both sources to GND
+   Wiring:  PA1 -> TRIG straight, 3.3V is plenty for the sensor
+            ECHO -> Q1 gate, Q1 drain -> Q2 gate (10k up to 5V)
+            Q2 drain -> PA6 (10k up to 3V3), both sources to GND
             LED1C (D1) or LED3C (D3) -> PA5, sensor on 5V
-            Both 2N7000s invert the signal, Shifter_Inverts in the header handles it
+            Q1 flips ECHO and Q2 flips it back, so Shifter_Inverts is 0
 */
 #include "stm32f4xx.h"
 #include <stdio.h>

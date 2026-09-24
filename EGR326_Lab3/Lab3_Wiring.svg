@@ -49,19 +49,20 @@
   <text x="596" y="252" font-size="9" fill="#cfe">(or LED1C for blue D1)</text>
 
   <!-- LEGEND -->
-  <rect x="780" y="40" width="300" height="250" rx="8" fill="#fafafa" stroke="#ddd"/>
-  <text x="796" y="64" font-size="14" font-weight="bold" fill="#222">Connections</text>
+  <rect x="780" y="34" width="300" height="266" rx="8" fill="#fafafa" stroke="#ddd"/>
+  <text x="796" y="58" font-size="14" font-weight="bold" fill="#222">Connections</text>
   <g font-size="12" fill="#333">
-    <rect x="796" y="78" width="22" height="6" fill="#d32f2f"/><text x="828" y="85">5V rail → VCC, Q1 drain pull-up</text>
-    <rect x="796" y="100" width="22" height="6" fill="#f57c00"/><text x="828" y="107">3V3 rail → Q2 drain pull-up</text>
-    <rect x="796" y="122" width="22" height="6" fill="#222"/><text x="828" y="129">GND rail → sensor GND, Q1 S, Q2 S</text>
-    <rect x="796" y="144" width="22" height="6" fill="#f2c200"/><text x="828" y="151">PA1 → Q1 G,  Q1 D → TRIG</text>
-    <rect x="796" y="166" width="22" height="6" fill="#2e9e3e"/><text x="828" y="173">ECHO → Q2 G,  Q2 D → PA6</text>
-    <rect x="796" y="188" width="22" height="6" fill="#1e6fd9"/><text x="828" y="195">PA5 (D13) → LED3C / LED1C</text>
-    <text x="796" y="222" fill="#666" font-size="11">2N7000, flat side facing you: S  G  D</text>
-    <text x="796" y="238" fill="#666" font-size="11">2 × 10kΩ pull-ups (brown-black-orange)</text>
-    <text x="796" y="254" fill="#666" font-size="11">Each 2N7000 inverts, code flips it back</text>
-    <text x="796" y="270" fill="#666" font-size="11">(Shifter_Inverts = 1 in Lab3_Functions.h)</text>
+    <rect x="796" y="72" width="22" height="6" fill="#d32f2f"/><text x="828" y="79">5V rail → VCC, Q1 drain pull-up</text>
+    <rect x="796" y="94" width="22" height="6" fill="#f57c00"/><text x="828" y="101">3V3 rail → Q2 drain pull-up</text>
+    <rect x="796" y="116" width="22" height="6" fill="#222"/><text x="828" y="123">GND rail → sensor GND, Q1 S, Q2 S</text>
+    <rect x="796" y="138" width="22" height="6" fill="#f2c200"/><text x="828" y="145">PA1 (A1) → TRIG, straight</text>
+    <rect x="796" y="160" width="22" height="6" fill="#2e9e3e"/><text x="828" y="167">ECHO → Q1 → Q2 → PA6 (D12)</text>
+    <rect x="796" y="182" width="22" height="6" fill="#1e6fd9"/><text x="828" y="189">PA5 (D13) → LED3C / LED1C</text>
+    <text x="796" y="214" fill="#666" font-size="11">Q1 flips ECHO, Q2 flips it back,</text>
+    <text x="796" y="229" fill="#666" font-size="11">so PA6 = ECHO at 3.3V (not inverted)</text>
+    <text x="796" y="248" fill="#666" font-size="11">2N7000s flat side facing AWAY: D G S</text>
+    <text x="796" y="264" fill="#666" font-size="11">2 × 10kΩ pull-ups (brown-black-orange)</text>
+    <text x="796" y="283" fill="#666" font-size="11">Shifter_Inverts = 0 in Lab3_Functions.h</text>
   </g>
 
   <!-- BREADBOARD -->
@@ -74,7 +75,7 @@
   <rect x="90" y="650" width="940" height="20" fill="url(#hole)"/>
   <rect x="90" y="670" width="940" height="20" fill="url(#hole)"/>
   <line x1="90" y1="697" x2="1030" y2="697" stroke="#1e6fd9" stroke-width="2"/>
-  <text x="1033" y="664" font-size="11" fill="#d32f2f">5V</text><text x="712" y="516" font-size="10" fill="#333">Q2 D → PA6</text>
+  <text x="1033" y="664" font-size="11" fill="#d32f2f">5V</text>
   <text x="1034" y="686" font-size="14" fill="#1e6fd9">−</text>
 
   <!-- HC-SR04 -->
@@ -86,10 +87,8 @@
   <g stroke="#9a9a9a" stroke-width="3"><line x1="800" y1="410" x2="800" y2="500"/><line x1="820" y1="410" x2="820" y2="500"/><line x1="840" y1="410" x2="840" y2="500"/><line x1="860" y1="410" x2="860" y2="500"/></g>
 
   <!-- MOSFETS -->
-  <line x1="440" y1="552" x2="440" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="440" cy="560" r="3" fill="#555"/><line x1="460" y1="552" x2="460" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="460" cy="560" r="3" fill="#555"/><line x1="480" y1="552" x2="480" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="480" cy="560" r="3" fill="#555"/><path d="M430,552 L430,534 Q460,512 490,534 L490,552 Z" fill="#222"/><text x="460" y="547" font-size="9" fill="#fff" text-anchor="middle">Q1</text><g font-size="9" fill="#333" text-anchor="middle"><text x="440" y="580">S</text><text x="460" y="580">G</text><text x="480" y="580">D</text></g>
-  <line x1="600" y1="552" x2="600" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="600" cy="560" r="3" fill="#555"/><line x1="620" y1="552" x2="620" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="620" cy="560" r="3" fill="#555"/><line x1="640" y1="552" x2="640" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="640" cy="560" r="3" fill="#555"/><path d="M590,552 L590,534 Q620,512 650,534 L650,552 Z" fill="#222"/><text x="620" y="547" font-size="9" fill="#fff" text-anchor="middle">Q2</text><g font-size="9" fill="#333" text-anchor="middle"><text x="600" y="580">S</text><text x="620" y="580">G</text><text x="640" y="580">D</text></g>
-  <text x="630" y="426" font-size="10" fill="#333" text-anchor="middle">Q1 D → TRIG</text>
-  <text x="740" y="594" font-size="10" fill="#333" text-anchor="middle">ECHO → Q2 G</text>
+  <line x1="480" y1="552" x2="480" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="480" cy="560" r="3" fill="#555"/><line x1="500" y1="552" x2="500" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="500" cy="560" r="3" fill="#555"/><line x1="520" y1="552" x2="520" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="520" cy="560" r="3" fill="#555"/><path d="M470,552 L470,534 Q500,512 530,534 L530,552 Z" fill="#3a3a3a" stroke="#111"/><text x="500" y="547" font-size="9" fill="#fff" text-anchor="middle">Q2</text><g font-size="9" fill="#333" text-anchor="middle"><text x="480" y="580">D</text><text x="500" y="580">G</text><text x="520" y="580">S</text></g>
+  <line x1="640" y1="552" x2="640" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="640" cy="560" r="3" fill="#555"/><line x1="660" y1="552" x2="660" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="660" cy="560" r="3" fill="#555"/><line x1="680" y1="552" x2="680" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="680" cy="560" r="3" fill="#555"/><path d="M630,552 L630,534 Q660,512 690,534 L690,552 Z" fill="#3a3a3a" stroke="#111"/><text x="660" y="547" font-size="9" fill="#fff" text-anchor="middle">Q1</text><g font-size="9" fill="#333" text-anchor="middle"><text x="640" y="580">D</text><text x="660" y="580">G</text><text x="680" y="580">S</text></g>
 
   <!-- WIRES -->
   <g fill="none" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
@@ -98,19 +97,27 @@
     <polyline points="190,285 190,400 160,400 160,460" stroke="#f57c00"/>
     <polyline points="800,620 800,660" stroke="#d32f2f"/>
     <polyline points="860,600 860,680" stroke="#222"/>
-    <polyline points="440,600 440,680" stroke="#222"/>
-    <polyline points="600,600 600,680" stroke="#222"/>
-    <polyline points="370,285 370,330 400,330 400,500 460,500" stroke="#f2c200"/>
-    <polyline points="480,500 480,432 780,432 780,540 820,540" stroke="#f2c200"/>
-    <polyline points="840,600 620,600" stroke="#2e9e3e"/>
-    <polyline points="640,520 700,520 700,300 560,300 560,20 290,20 290,62" stroke="#2e9e3e"/>
+    <polyline points="680,620 680,680" stroke="#222"/>
+    <polyline points="520,600 520,680" stroke="#222"/>
+    <polyline points="370,285 370,330 700,330 700,540 820,540" stroke="#f2c200"/>
+    <polyline points="840,600 660,600" stroke="#2e9e3e"/>
+    <polyline points="640,500 640,480 500,480 500,500" stroke="#2e9e3e"/>
+    <polyline points="480,600 460,600 460,432 540,432 540,20 290,20 290,62" stroke="#2e9e3e"/>
     <polyline points="270,62 270,10 600,10 600,230" stroke="#1e6fd9"/>
   </g>
 
   <!-- PULL-UPS -->
-  <line x1="480" y1="620" x2="480" y2="660" stroke="#8c8c8c" stroke-width="3"/><rect x="473.0" y="627.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="473.0" y="630.0" width="14" height="3" fill="#7a4a1a"/><rect x="473.0" y="635.0" width="14" height="3" fill="#111"/><rect x="473.0" y="640.0" width="14" height="3" fill="#f57c00"/><rect x="473.0" y="645.0" width="14" height="3" fill="#c9a227"/><circle cx="480" cy="620" r="3" fill="#555"/><circle cx="480" cy="660" r="3" fill="#555"/>
-  <line x1="640" y1="460" x2="640" y2="500" stroke="#8c8c8c" stroke-width="3"/><rect x="633.0" y="467.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="633.0" y="470.0" width="14" height="3" fill="#7a4a1a"/><rect x="633.0" y="475.0" width="14" height="3" fill="#111"/><rect x="633.0" y="480.0" width="14" height="3" fill="#f57c00"/><rect x="633.0" y="485.0" width="14" height="3" fill="#c9a227"/><circle cx="640" cy="460" r="3" fill="#555"/><circle cx="640" cy="500" r="3" fill="#555"/>
-  <g font-size="10" fill="#333"><text x="492" y="646">10k</text><text x="652" y="470">10k</text></g>
+  <line x1="640" y1="620" x2="640" y2="660" stroke="#8c8c8c" stroke-width="3"/><rect x="633.0" y="627.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="633.0" y="630.0" width="14" height="3" fill="#7a4a1a"/><rect x="633.0" y="635.0" width="14" height="3" fill="#111"/><rect x="633.0" y="640.0" width="14" height="3" fill="#f57c00"/><rect x="633.0" y="645.0" width="14" height="3" fill="#c9a227"/><circle cx="640" cy="620" r="3" fill="#555"/><circle cx="640" cy="660" r="3" fill="#555"/>
+  <line x1="480" y1="460" x2="480" y2="500" stroke="#8c8c8c" stroke-width="3"/><rect x="473.0" y="467.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="473.0" y="470.0" width="14" height="3" fill="#7a4a1a"/><rect x="473.0" y="475.0" width="14" height="3" fill="#111"/><rect x="473.0" y="480.0" width="14" height="3" fill="#f57c00"/><rect x="473.0" y="485.0" width="14" height="3" fill="#c9a227"/><circle cx="480" cy="460" r="3" fill="#555"/><circle cx="480" cy="500" r="3" fill="#555"/>
+  <g font-size="10" fill="#333"><text x="648" y="639">10k</text><text x="492" y="453">10k</text></g>
 
-  <g fill="#555"><circle cx="100" cy="660" r="3"/><circle cx="120" cy="680" r="3"/><circle cx="160" cy="460" r="3"/><circle cx="800" cy="620" r="3"/><circle cx="800" cy="660" r="3"/><circle cx="860" cy="600" r="3"/><circle cx="860" cy="680" r="3"/><circle cx="460" cy="500" r="3"/><circle cx="440" cy="600" r="3"/><circle cx="440" cy="680" r="3"/><circle cx="480" cy="500" r="3"/><circle cx="820" cy="540" r="3"/><circle cx="600" cy="600" r="3"/><circle cx="600" cy="680" r="3"/><circle cx="840" cy="600" r="3"/><circle cx="620" cy="600" r="3"/><circle cx="640" cy="520" r="3"/><circle cx="800" cy="500" r="3"/><circle cx="820" cy="500" r="3"/><circle cx="840" cy="500" r="3"/><circle cx="860" cy="500" r="3"/></g>
+  <!-- LABELS -->
+  <g font-size="10" fill="#333">
+    <text x="750" y="594" text-anchor="middle">ECHO → Q1 G</text>
+    <text x="592" y="452" text-anchor="middle">Q1 D → Q2 G</text>
+    <text x="548" y="396">Q2 D → PA6</text>
+    <text x="612" y="325">PA1 → TRIG</text>
+  </g>
+
+  <g fill="#555"><circle cx="100" cy="660" r="3"/><circle cx="120" cy="680" r="3"/><circle cx="160" cy="460" r="3"/><circle cx="800" cy="620" r="3"/><circle cx="800" cy="660" r="3"/><circle cx="860" cy="600" r="3"/><circle cx="860" cy="680" r="3"/><circle cx="680" cy="620" r="3"/><circle cx="680" cy="680" r="3"/><circle cx="520" cy="600" r="3"/><circle cx="520" cy="680" r="3"/><circle cx="820" cy="540" r="3"/><circle cx="840" cy="600" r="3"/><circle cx="660" cy="600" r="3"/><circle cx="640" cy="500" r="3"/><circle cx="500" cy="500" r="3"/><circle cx="480" cy="600" r="3"/><circle cx="800" cy="500" r="3"/><circle cx="820" cy="500" r="3"/><circle cx="840" cy="500" r="3"/><circle cx="860" cy="500" r="3"/></g>
 </svg>
