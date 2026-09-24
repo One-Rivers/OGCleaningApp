@@ -34,6 +34,7 @@
     <text x="210" y="262">5V</text>
     <text x="230" y="250">GND</text>
     <text x="370" y="262">A1 PA1</text>
+    <text x="190" y="250">3V3</text>
   </g>
 
   <!-- SHIELD LED -->
@@ -48,63 +49,75 @@
   <text x="596" y="252" font-size="9" fill="#cfe">(or LED1C for blue D1)</text>
 
   <!-- LEGEND -->
-  <rect x="780" y="40" width="290" height="230" rx="8" fill="#fafafa" stroke="#ddd"/>
+  <rect x="780" y="40" width="300" height="250" rx="8" fill="#fafafa" stroke="#ddd"/>
   <text x="796" y="64" font-size="14" font-weight="bold" fill="#222">Connections</text>
   <g font-size="12" fill="#333">
-    <rect x="796" y="78" width="22" height="6" fill="#d32f2f"/><text x="828" y="85">5V → HC-SR04 VCC</text>
-    <rect x="796" y="100" width="22" height="6" fill="#222"/><text x="828" y="107">GND → HC-SR04 GND</text>
-    <rect x="796" y="122" width="22" height="6" fill="#f2c200"/><text x="828" y="129">PA1 (A1) → TRIG</text>
-    <rect x="796" y="144" width="22" height="6" fill="#2e9e3e"/><text x="828" y="151">ECHO → 1kΩ → PA6 (D12)</text>
-    <rect x="796" y="166" width="22" height="6" fill="#2e9e3e"/><text x="828" y="173">PA6 → 2kΩ → GND</text>
+    <rect x="796" y="78" width="22" height="6" fill="#d32f2f"/><text x="828" y="85">5V rail → VCC, drain pull-ups</text>
+    <rect x="796" y="100" width="22" height="6" fill="#f57c00"/><text x="828" y="107">3V3 rail → gates, source pull-ups</text>
+    <rect x="796" y="122" width="22" height="6" fill="#222"/><text x="828" y="129">GND rail → HC-SR04 GND</text>
+    <rect x="796" y="144" width="22" height="6" fill="#f2c200"/><text x="828" y="151">PA1 → Q1 S,  Q1 D → TRIG</text>
+    <rect x="796" y="166" width="22" height="6" fill="#2e9e3e"/><text x="828" y="173">ECHO → Q2 D,  Q2 S → PA6</text>
     <rect x="796" y="188" width="22" height="6" fill="#1e6fd9"/><text x="828" y="195">PA5 (D13) → LED3C / LED1C</text>
-    <text x="796" y="224" fill="#666" font-size="11">Divider drops the 5V echo to ~3.3V:</text>
-    <text x="796" y="240" fill="#666" font-size="11">5V × 2k / (1k + 2k) = 3.33V</text>
-    <text x="796" y="256" fill="#666" font-size="11">TIM3 CH1 capture on PA6, TIM2 CH1 PWM on PA5</text>
+    <text x="796" y="222" fill="#666" font-size="11">2N7000, flat side facing you: S  G  D</text>
+    <text x="796" y="238" fill="#666" font-size="11">4 × 10kΩ pull-ups (brown-black-orange)</text>
+    <text x="796" y="254" fill="#666" font-size="11">Non-inverting, so the code doesn't change</text>
+    <text x="796" y="270" fill="#666" font-size="11">TIM3 CH1 capture PA6, TIM2 CH1 PWM PA5</text>
   </g>
 
   <!-- BREADBOARD -->
-  <rect x="80" y="440" width="960" height="270" rx="6" fill="#ececec" stroke="#cfcfcf"/>
+  <rect x="80" y="420" width="960" height="290" rx="6" fill="#ececec" stroke="#cfcfcf"/>
+  <rect x="90" y="450" width="610" height="20" fill="url(#hole)"/>
+  <line x1="90" y1="474" x2="700" y2="474" stroke="#f57c00" stroke-width="2"/>
+  <text x="706" y="465" font-size="11" fill="#f57c00">3V3</text>
   <rect x="90" y="490" width="940" height="140" fill="url(#hole)"/>
   <line x1="90" y1="645" x2="1030" y2="645" stroke="#d32f2f" stroke-width="2"/>
   <rect x="90" y="650" width="940" height="20" fill="url(#hole)"/>
   <rect x="90" y="670" width="940" height="20" fill="url(#hole)"/>
   <line x1="90" y1="697" x2="1030" y2="697" stroke="#1e6fd9" stroke-width="2"/>
-  <text x="1033" y="664" font-size="12" fill="#d32f2f">+</text>
+  <text x="1033" y="664" font-size="11" fill="#d32f2f">5V</text>
   <text x="1034" y="686" font-size="14" fill="#1e6fd9">−</text>
 
   <!-- HC-SR04 -->
-  <rect x="720" y="330" width="220" height="100" rx="6" fill="#1d4f9c" stroke="#123a75" stroke-width="2"/>
-  <circle cx="770" cy="375" r="34" fill="#c9c9c9" stroke="#888" stroke-width="3"/><circle cx="770" cy="375" r="20" fill="#555"/>
-  <circle cx="890" cy="375" r="34" fill="#c9c9c9" stroke="#888" stroke-width="3"/><circle cx="890" cy="375" r="20" fill="#555"/>
-  <text x="830" y="350" font-size="11" fill="#fff" text-anchor="middle">HC-SR04</text>
-  <g font-size="9" fill="#fff" text-anchor="start"><text transform="translate(803,426) rotate(-90)">VCC</text><text transform="translate(823,426) rotate(-90)">TRIG</text><text transform="translate(843,426) rotate(-90)">ECHO</text><text transform="translate(863,426) rotate(-90)">GND</text></g>
-  <g stroke="#9a9a9a" stroke-width="3"><line x1="800" y1="430" x2="800" y2="500"/><line x1="820" y1="430" x2="820" y2="500"/><line x1="840" y1="430" x2="840" y2="500"/><line x1="860" y1="430" x2="860" y2="500"/></g>
+  <rect x="720" y="310" width="220" height="100" rx="6" fill="#1d4f9c" stroke="#123a75" stroke-width="2"/>
+  <circle cx="770" cy="355" r="34" fill="#c9c9c9" stroke="#888" stroke-width="3"/><circle cx="770" cy="355" r="20" fill="#555"/>
+  <circle cx="890" cy="355" r="34" fill="#c9c9c9" stroke="#888" stroke-width="3"/><circle cx="890" cy="355" r="20" fill="#555"/>
+  <text x="830" y="330" font-size="11" fill="#fff" text-anchor="middle">HC-SR04</text>
+  <g font-size="9" fill="#fff" text-anchor="start"><text transform="translate(803,406) rotate(-90)">VCC</text><text transform="translate(823,406) rotate(-90)">TRIG</text><text transform="translate(843,406) rotate(-90)">ECHO</text><text transform="translate(863,406) rotate(-90)">GND</text></g>
+  <g stroke="#9a9a9a" stroke-width="3"><line x1="800" y1="410" x2="800" y2="500"/><line x1="820" y1="410" x2="820" y2="500"/><line x1="840" y1="410" x2="840" y2="500"/><line x1="860" y1="410" x2="860" y2="500"/></g>
 
-  <!-- RESISTORS -->
-  <use href="#res" x="560" y="520"/>
-  <g transform="translate(582,520)"><rect x="4" y="-8" width="3" height="16" fill="#7a4a1a"/><rect x="10" y="-8" width="3" height="16" fill="#111"/><rect x="16" y="-8" width="3" height="16" fill="#d32f2f"/><rect x="28" y="-8" width="3" height="16" fill="#c9a227"/></g>
-  <text x="600" y="508" font-size="11" fill="#333" text-anchor="middle">1kΩ</text>
-  <use href="#res" x="480" y="600"/>
-  <g transform="translate(502,600)"><rect x="4" y="-8" width="3" height="16" fill="#d32f2f"/><rect x="10" y="-8" width="3" height="16" fill="#111"/><rect x="16" y="-8" width="3" height="16" fill="#d32f2f"/><rect x="28" y="-8" width="3" height="16" fill="#c9a227"/></g>
-  <text x="520" y="588" font-size="11" fill="#333" text-anchor="middle">2kΩ</text>
+  <!-- MOSFETS -->
+  <line x1="440" y1="552" x2="440" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="440" cy="560" r="3" fill="#555"/><line x1="460" y1="552" x2="460" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="460" cy="560" r="3" fill="#555"/><line x1="480" y1="552" x2="480" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="480" cy="560" r="3" fill="#555"/><path d="M430,552 L430,534 Q460,512 490,534 L490,552 Z" fill="#222"/><text x="460" y="547" font-size="9" fill="#fff" text-anchor="middle">Q1</text><g font-size="9" fill="#333" text-anchor="middle"><text x="440" y="578">S</text><text x="460" y="578">G</text><text x="480" y="578">D</text></g>
+  <line x1="600" y1="552" x2="600" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="600" cy="560" r="3" fill="#555"/><line x1="620" y1="552" x2="620" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="620" cy="560" r="3" fill="#555"/><line x1="640" y1="552" x2="640" y2="560" stroke="#9a9a9a" stroke-width="3"/><circle cx="640" cy="560" r="3" fill="#555"/><path d="M590,552 L590,534 Q620,512 650,534 L650,552 Z" fill="#222"/><text x="620" y="547" font-size="9" fill="#fff" text-anchor="middle">Q2</text><g font-size="9" fill="#333" text-anchor="middle"><text x="600" y="578">S</text><text x="620" y="578">G</text><text x="640" y="578">D</text></g>
+  <text x="460" y="612" font-size="10" fill="#333" text-anchor="middle">TRIG</text>
+  <text x="620" y="612" font-size="10" fill="#333" text-anchor="middle">ECHO</text>
 
   <!-- WIRES -->
   <g fill="none" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
     <polyline points="210,285 210,360 100,360 100,660" stroke="#d32f2f"/>
     <polyline points="230,285 230,380 120,380 120,680" stroke="#222"/>
-    <polyline points="800,600 800,660" stroke="#d32f2f"/>
+    <polyline points="190,285 190,400 160,400 160,460" stroke="#f57c00"/>
+    <polyline points="460,500 460,460" stroke="#f57c00"/>
+    <polyline points="620,500 620,460" stroke="#f57c00"/>
+    <polyline points="800,620 800,660" stroke="#d32f2f"/>
     <polyline points="860,600 860,680" stroke="#222"/>
-    <polyline points="480,620 480,680" stroke="#222"/>
-    <polyline points="370,285 370,320 700,320 700,560 820,560" stroke="#f2c200"/>
-    <polyline points="840,580 840,635 640,635 640,580" stroke="#2e9e3e"/>
-    <polyline points="560,500 560,20 290,20 290,62" stroke="#2e9e3e"/>
+    <polyline points="370,285 370,330 400,330 400,600 440,600" stroke="#f2c200"/>
+    <polyline points="480,500 480,432 780,432 780,540 820,540" stroke="#f2c200"/>
+    <polyline points="840,600 640,600" stroke="#2e9e3e"/>
+    <polyline points="600,580 560,580 560,20 290,20 290,62" stroke="#2e9e3e"/>
     <polyline points="270,62 270,10 600,10 600,230" stroke="#1e6fd9"/>
   </g>
+
+  <!-- PULL-UPS -->
+  <line x1="440" y1="460" x2="440" y2="520" stroke="#8c8c8c" stroke-width="3"/><rect x="433.0" y="477.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="433.0" y="480.0" width="14" height="3" fill="#7a4a1a"/><rect x="433.0" y="485.0" width="14" height="3" fill="#111"/><rect x="433.0" y="490.0" width="14" height="3" fill="#f57c00"/><rect x="433.0" y="495.0" width="14" height="3" fill="#c9a227"/><circle cx="440" cy="460" r="3" fill="#555"/><circle cx="440" cy="520" r="3" fill="#555"/>
+  <line x1="600" y1="460" x2="600" y2="520" stroke="#8c8c8c" stroke-width="3"/><rect x="593.0" y="477.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="593.0" y="480.0" width="14" height="3" fill="#7a4a1a"/><rect x="593.0" y="485.0" width="14" height="3" fill="#111"/><rect x="593.0" y="490.0" width="14" height="3" fill="#f57c00"/><rect x="593.0" y="495.0" width="14" height="3" fill="#c9a227"/><circle cx="600" cy="460" r="3" fill="#555"/><circle cx="600" cy="520" r="3" fill="#555"/>
+  <line x1="480" y1="620" x2="480" y2="660" stroke="#8c8c8c" stroke-width="3"/><rect x="473.0" y="627.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="473.0" y="630.0" width="14" height="3" fill="#7a4a1a"/><rect x="473.0" y="635.0" width="14" height="3" fill="#111"/><rect x="473.0" y="640.0" width="14" height="3" fill="#f57c00"/><rect x="473.0" y="645.0" width="14" height="3" fill="#c9a227"/><circle cx="480" cy="620" r="3" fill="#555"/><circle cx="480" cy="660" r="3" fill="#555"/>
+  <line x1="640" y1="620" x2="640" y2="660" stroke="#8c8c8c" stroke-width="3"/><rect x="633.0" y="627.0" width="14" height="26" rx="6" fill="#e3c89a" stroke="#b39a6b"/><rect x="633.0" y="630.0" width="14" height="3" fill="#7a4a1a"/><rect x="633.0" y="635.0" width="14" height="3" fill="#111"/><rect x="633.0" y="640.0" width="14" height="3" fill="#f57c00"/><rect x="633.0" y="645.0" width="14" height="3" fill="#c9a227"/><circle cx="640" cy="620" r="3" fill="#555"/><circle cx="640" cy="660" r="3" fill="#555"/>
+  <g font-size="10" fill="#333"><text x="400" y="494">10k</text><text x="656" y="494">10k</text><text x="492" y="646">10k</text><text x="652" y="646">10k</text></g>
+
   <g fill="#555">
-    <circle cx="100" cy="660" r="3"/><circle cx="120" cy="680" r="3"/><circle cx="800" cy="600" r="3"/><circle cx="800" cy="660" r="3"/>
-    <circle cx="860" cy="600" r="3"/><circle cx="860" cy="680" r="3"/><circle cx="480" cy="620" r="3"/><circle cx="480" cy="680" r="3"/>
-    <circle cx="820" cy="560" r="3"/><circle cx="840" cy="580" r="3"/><circle cx="640" cy="580" r="3"/><circle cx="560" cy="500" r="3"/>
-    <circle cx="560" cy="520" r="3"/><circle cx="640" cy="520" r="3"/><circle cx="560" cy="600" r="3"/><circle cx="480" cy="600" r="3"/>
+    <circle cx="100" cy="660" r="3"/><circle cx="120" cy="680" r="3"/><circle cx="160" cy="460" r="3"/><circle cx="460" cy="500" r="3"/><circle cx="460" cy="460" r="3"/>
+    <circle cx="620" cy="500" r="3"/><circle cx="620" cy="460" r="3"/><circle cx="800" cy="620" r="3"/><circle cx="800" cy="660" r="3"/><circle cx="860" cy="600" r="3"/><circle cx="860" cy="680" r="3"/>
+    <circle cx="440" cy="600" r="3"/><circle cx="480" cy="500" r="3"/><circle cx="820" cy="540" r="3"/><circle cx="840" cy="600" r="3"/><circle cx="640" cy="600" r="3"/><circle cx="600" cy="580" r="3"/>
     <circle cx="800" cy="500" r="3"/><circle cx="820" cy="500" r="3"/><circle cx="840" cy="500" r="3"/><circle cx="860" cy="500" r="3"/>
   </g>
 </svg>
