@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Lab3_Functions.h"
+#include "USART.h"
 
 volatile uint32_t Echo_Start = 0;										/* TIM3 count when echo went high*/
 volatile uint32_t Echo_Width = 0;										/* how long echo stayed high in us*/
@@ -188,4 +189,16 @@ void TIM3_IRQHandler(void){
         }
     }
     TIM3->SR &= ~TIM_SR_CC1OF;										/* clear overcapture just in case*/
+}
+
+/***| fputc(int ch, FILE *f) |*********************************************************************************************************************************************************/
+/* Keil's printf calls this for every character, so we just shove it out USART2 (PA2) with the
+   driver we were given. Shows up on the ST-Link virtual COM port at 9600 baud, 8N1. Also sneaks
+   a \r in before every \n so the terminal actually goes to the next line, tiny thing but nice.
+**************************************************************************************************************************************************************************************/
+int fputc(int ch, FILE *f){
+    (void)f;
+    if(ch == '\n'){USART2_write_char('\r');}						/* carriage return first*/
+    USART2_write_char(ch);											/* then the actual character*/
+    return ch;
 }

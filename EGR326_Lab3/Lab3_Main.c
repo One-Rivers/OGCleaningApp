@@ -1,6 +1,7 @@
 /* EGR326 Lab 3 - Capture and Compare with the STM32F446
    Juan Rios
    Part I:  HC-SR04 proximity sensor, TIM3 input capture measures the echo, prints distance every 2 sec
+            printf goes out USART2 (PA2) to the ST-Link COM port, 9600 baud 8N1
    Part II: LED on TIM2 PWM gets brighter/dimmer with distance, blinks at 2Hz under 1 inch
    Wiring:  PA1 -> TRIG straight, 3.3V is plenty for the sensor
             ECHO -> Q1 gate, Q1 drain -> Q2 gate (10k up to 5V)
@@ -13,8 +14,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "Lab3_Functions.h"
+#include "USART.h"
 
 int main(void){
+    USART_Init();													/* USART2 for printf, gotta be first so we can see stuff*/
     Systick_init();													/* Systick Initialization*/
     Trigger_init();													/* PA1 trigger out*/
     Echo_Capture_init();											/* PA6 + TIM3 capture*/

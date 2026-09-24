@@ -72,4 +72,8 @@ void LED_Proximity(float inches, uint8_t *blinkptr);
 */
 void TIM3_IRQHandler(void);
 
+/*printf goes out USART2********************************************
+*/
+int fputc(int ch, FILE *f);
+
 #endif /* Lab3_Functions_H_ */
