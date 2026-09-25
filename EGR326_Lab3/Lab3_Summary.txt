@@ -1,0 +1,92 @@
+EGR 326 - Lab 3: Capture and Compare with the STM32F446
+========================================================
+
+PURPOSE
+-------
+Lab 3 teaches the two main jobs of an STM32 timer:
+  - INPUT CAPTURE: measuring a signal coming in (how long a pulse lasts)
+  - OUTPUT COMPARE / PWM: generating a signal going out (LED brightness)
+
+Both get tied together into one small system: an ultrasonic proximity
+sensor measures distance, and an LED shows that distance with its
+brightness. This is a building block for the embedded system design
+project, which needs both proximity sensing and LED display control.
+
+Skills practiced:
+  - Configuring timers and GPIO alternate functions at the register level
+  - Handling timer interrupts
+  - Turning a raw timer count into a real unit (inches)
+  - Interfacing a 5V part with 3.3V logic (level shifter)
+  - Sending results to a serial console over USART
+
+
+PART I - Measuring Distance with Input Capture
+----------------------------------------------
+  - Pulse the HC-SR04 TRIG pin for 10 us to fire an ultrasonic ping.
+  - The sensor holds ECHO high for as long as the sound takes to go out
+    and come back.
+  - A timer in capture mode timestamps the rising and falling edges of
+    ECHO. Pulse width / 148 us = distance in inches.
+  - Print the distance to the console every 2 seconds.
+  - Take readings with the object:
+        * directly in front of the sensor
+        * about +20 degrees off axis
+        * about -20 degrees off axis
+    at roughly 1-inch steps, and compare the three.
+  - The sensor runs on 5V, so a level shifter protects the STM32 pin
+    that reads ECHO.
+  - Demo to the instructor.
+
+
+PART II - Visual Feedback with PWM
+----------------------------------
+  - Connect an external LED to a timer output pin.
+  - The LED duty cycle follows the distance:
+        under 1 inch   -> blinks at 2 Hz, full brightness
+        ~1 inch        -> 100%
+        2 to 9 inches  -> inches x 10%  (2 in = 20%, 9 in = 90%)
+        10 in or more  -> off
+  - Demo to the instructor.
+
+
+REPORT QUESTIONS
+----------------
+  1. How does the sensor's performance off axis (+/-20 degrees) compare
+     with a direct approach?
+  2. Document the results for all 3 approaches at ~1-inch increments.
+
+
+DELIVERABLES
+------------
+  - Demo both parts to the instructor by the start of the next lab.
+  - Lab report on Blackboard per the rubric, including:
+      * The distance readings for all 3 approach angles
+      * The answer to the off-axis question
+      * Well-commented source code with a description header for every
+        routine, in the appendix
+
+
+HOW OUR BUILD DOES IT (see Lab3_Circuit.png)
+--------------------------------------------
+  TRIG        PA1 (A1) straight to the sensor. 3.3V is a valid high for it.
+  ECHO        Sensor ECHO -> 1k -> Q1 gate. Q1 flips the signal, Q2 flips
+              it back, so PA6 (D12) sees ECHO at 3.3V, not inverted.
+                Q1 drain: 10k pull-up to 5V, drives Q2 gate
+                Q2 drain: 10k pull-up to 3.3V, goes to PA6
+                Both sources to GND. Q1 and Q2 are 2N7000 MOSFETs.
+  Capture     TIM3 CH1 on PA6, 1 us per count, interrupt on both edges
+  LED         PA5 (D13) -> 330 ohm -> external LED -> GND, TIM2 CH1 PWM at 1 kHz
+  Power       5V to the sensor VCC, all grounds common
+  Console     printf -> USART2 (PA2) over the USB cable, 9600 baud 8N1
+
+Code files: Lab3_Main.c, Lab3_Functions.c, Lab3_Functions.h, USART.c, USART.h
+  - Main loop runs every 250 ms: trigger, wait for the echo (40 ms max),
+    set the LED, and print every 8th loop (every 2 seconds).
+  - No echo back prints "out of range".
+  - Shifter_Inverts = 0 in Lab3_Functions.h because Q1 + Q2 cancel out.
+
+KEIL SETUP
+----------
+  - Add Lab3_Main.c, Lab3_Functions.c and USART.c to the project.
+  - Tick "Use MicroLIB" (Options for Target -> Target) so printf works.
+  - Open a serial terminal on the ST-Link COM port at 9600 baud.
