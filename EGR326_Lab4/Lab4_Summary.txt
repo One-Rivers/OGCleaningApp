@@ -1,0 +1,103 @@
+EGR 326 - Lab 4: Interfacing a Keypad and Rotary Encoder with the STM32
+=========================================================================
+
+PURPOSE
+-------
+Lab 3 read a sensor. Lab 4 reads a person. The goal is to build the
+user-input side of an embedded system: a 12-key keypad for typing values
+and a rotary encoder knob (with a built-in push button) for turning and
+selecting. These are the same input methods you will use in the embedded
+system design project to set parameters and control actions.
+
+Skills practiced:
+  - Scanning a keypad matrix (rows and columns) with GPIO
+  - Debouncing mechanical switches in software
+  - Decoding a 2-bit Gray code to get rotation direction and count
+  - Using interrupts vs. polling for inputs
+  - Sending results to a serial console over USART
+  - Using an oscilloscope to look at real digital signals
+
+
+PART I - Keypad
+---------------
+  - Wire the 12-key keypad (4 rows x 3 columns, 7 pins) to the STM32 pins
+    from your pre-lab.
+  - Prompt the user over USART, read the keypad, and print the key pressed
+    (0-9, *, #) to the console.
+  - Debounce: one press must not register as several.
+  - One press = one report: holding a key down must not repeat. Wait until
+    no key is pressed before accepting the next one.
+  - Demo to the instructor.
+
+
+PART II - Rotary Encoder
+------------------------
+  - The KY-040 encoder has 20 clicks per turn, a push button (SW), and two
+    outputs, CLK and DT, that form a 2-bit Gray code.
+  - Capture CLK and DT together on an oscilloscope for both CW and CCW
+    rotation (one or two cycles is enough).
+  - Count CW clicks and CCW clicks separately.
+  - When the encoder button is pressed, print the net count
+    |CW - CCW| and the overall direction (CW or CCW).
+  - Direction rule (from the lab's waveform): right after a CLK edge,
+    DT != CLK means CW, DT == CLK means CCW.
+  - Demo to the instructor.
+
+
+PART III - Keypad + Encoder Together
+------------------------------------
+  - Press 1, 2, 3 or 4 on the keypad to choose a target angle.
+    The dial starts at 4 (top) and goes clockwise to 1, 2, 3:
+        Key 1 -> 90 deg  CW = 5 clicks
+        Key 2 -> 180 deg    = 10 clicks
+        Key 3 -> 270 deg    = 15 clicks
+        Key 4 -> 360 deg    = 20 clicks
+  - Turn the encoder:
+        Not there yet  -> no LED
+        Right on it    -> blue LED on
+        Past it        -> red LED on (blue off)
+        Back on it     -> blue again
+  - Pressing the encoder button resets the count, turns off all LEDs,
+    and goes back to picking a key.
+  - Demo to the instructor.
+
+
+REPORT QUESTIONS
+----------------
+  1. Polling the keypad ties up the microcontroller. Describe, step by
+     step, how to use interrupts instead so the CPU is free until a key
+     is actually pressed.
+  2. What is the advantage of Gray code? (Only one bit changes per step,
+     so there are no false in-between readings, and the order of the
+     changes tells you the direction.)
+
+
+DELIVERABLES
+------------
+  - Demo all three parts to the instructor by the start of the next lab.
+  - Lab report on Blackboard per the rubric, including:
+      * Oscilloscope capture of CLK and DT for CW and CCW
+      * Answers to both questions
+      * Well-commented source code with a description header for every
+        routine, in the appendix
+
+
+WIRING USED (see Lab4_Circuit.png)
+----------------------------------
+  Keypad rows R1-R4   -> D12, D11, D8, D7   (PA6, PA7, PA9, PA8), internal pull-ups
+  Keypad cols C1-C3   -> D6, D5, D4         (PB10, PB4, PB5), driven low one at a time
+  Encoder CLK         -> A0 (PA0)
+  Encoder DT          -> A1 (PA1)
+  Encoder SW          -> A2 (PA4), internal pull-up (the module has none on SW)
+  Encoder + / GND     -> 3V3 / GND
+  Blue LED            -> D15 (PB8) through 100 ohm
+  Red LED             -> D14 (PB9) through 330 ohm
+  printf              -> USART2 (PA2) over the USB cable, 9600 baud
+
+NOTES
+-----
+  - The lab doc still mentions the MSP432 and the CCS console in a few
+    places. That is left over from an older version of the course; use
+    the Nucleo and a serial terminal over USART.
+  - Keypad pin order varies by model. Find each row and column pin with a
+    meter's continuity beep before wiring.
