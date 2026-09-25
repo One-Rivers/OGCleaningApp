@@ -9,7 +9,7 @@
 /*Pins, all on Port A so life stays simple
 ****************************************************************************************************************************************************************************************/
 #define TRIG (uint32_t) 0x02											/* PA1, plain GPIO out that pokes the sensor*/
-#define LED  (uint32_t) 0x20											/* PA5, TIM2 CH1 PWM, jumper LED1C (blue D1) or LED3C (red D3) to this, the glowy one*/
+#define LED  (uint32_t) 0x20											/* PA5, TIM2 CH1 PWM, 330 ohm into the external LED, the glowy one*/
 #define ECHO (uint32_t) 0x40											/* PA6, TIM3 CH1 input capture, 5V goes through the level shifter first*/
 
 /*2N7000 level shifter
@@ -29,7 +29,7 @@
 
 /*Numbers we keep reusing
 ****************************************************************************************************************************************************************************************/
-#define LED_Active_Low 0												/* flip to 1 if LEDxC is the cathode side and the LED acts backwards*/
+#define LED_Active_Low 0												/* flip to 1 if the LED ends up wired 3V3 -> LED -> PA5 and acts backwards*/
 #define PWM_Period 1000												/* 1MHz / 1000 = 1kHz PWM, no flicker*/
 #define US_Per_Inch 148.0f											/* sound round trip, ~148us per inch*/
 #define Echo_Timeout 40												/* ms, sensor maxes out ~38ms so 40 is chill*/
