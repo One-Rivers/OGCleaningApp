@@ -10,6 +10,9 @@
 ****************************************************************************************************************************************************************************************/
 #define TRIG (uint32_t) 0x02											/* PA1, plain GPIO out that pokes the sensor*/
 #define LED  (uint32_t) 0x20											/* PA5, TIM2 CH1 PWM, 330 ohm into the external LED, the glowy one*/
+#define BLUE  (uint32_t) 0x0100											/* PA8, TIM1 CH1 PWM, to D1A (shield blue D1 anode), D1C to GND*/
+#define GREEN (uint32_t) 0x0200											/* PA9, TIM1 CH2 PWM, to D2A (shield green D2 anode), D2C to GND*/
+#define RED   (uint32_t) 0x0400											/* PA10, TIM1 CH3 PWM, to D3A (shield red D3 anode), D3C to GND*/
 #define ECHO (uint32_t) 0x40											/* PA6, TIM3 CH1 input capture, 5V goes through the level shifter first*/
 
 /*2N7000 level shifter
@@ -29,6 +32,7 @@
 
 /*Numbers we keep reusing
 ****************************************************************************************************************************************************************************************/
+#define Shield_Active_Low 0												/* flip to 1 if you wire DxA to 3V3 and DxC to the pins instead*/
 #define LED_Active_Low 0												/* flip to 1 if the LED ends up wired 3V3 -> LED -> PA5 and acts backwards*/
 #define PWM_Period 1000												/* 1MHz / 1000 = 1kHz PWM, no flicker*/
 #define US_Per_Inch 148.0f											/* sound round trip, ~148us per inch*/
@@ -56,6 +60,7 @@ uint8_t Hex2Bit(uint32_t hex_num);
 void Trigger_init(void);
 void Echo_Capture_init(void);
 void LED_PWM_init(void);
+void Shield_PWM_init(void);
 
 /*Sensor Functions********************************************
 */

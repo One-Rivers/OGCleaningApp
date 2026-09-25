@@ -1,8 +1,8 @@
 /* EGR326 shield LED check, Juan Rios.
    Flips all four LED pins high for 2 sec then low for 2 sec, forever.
    The orange LED on PA5 is the reference since it's wired PA5 -> resistor -> LED -> GND, so it's on during the HIGH half.
-   A shield LED that lights with the orange one is active high, one that lights while orange is off is active low (LEDxC = cathode).
-   If a shield LED never lights in either half, it's either dead or its other side isn't hooked up.
+   Shield LEDs: D1A/D2A/D3A (anodes) go to PA8/PA9/PA10 and D1C/D2C/D3C (cathodes) go to GND, so they light with the orange one.
+   If a shield LED never lights, it's dead or flipped, swap its A and C wires to double check.
    Works on the F411 or the F446 since GPIOA and SysTick are the same on both.
 */
 #include "stm32f4xx.h"
@@ -11,9 +11,9 @@
 /*Pins, all Port A so life stays simple
 ****************************************************************************************************************************************************************************************/
 #define ORANGE (uint32_t) 0x0020										/* PA5, the external orange LED from Lab 3*/
-#define BLUE   (uint32_t) 0x0100										/* PA8, jumper to LED1C (blue D1)*/
-#define GREEN  (uint32_t) 0x0200										/* PA9, jumper to LED2C (green D2)*/
-#define RED    (uint32_t) 0x0400										/* PA10, jumper to LED3C (red D3)*/
+#define BLUE   (uint32_t) 0x0100										/* PA8, to D1A (blue D1 anode)*/
+#define GREEN  (uint32_t) 0x0200										/* PA9, to D2A (green D2 anode)*/
+#define RED    (uint32_t) 0x0400										/* PA10, to D3A (red D3 anode)*/
 #define ALL_LEDS (ORANGE|BLUE|GREEN|RED)								/* the whole squad*/
 
 void Systick_init(void);

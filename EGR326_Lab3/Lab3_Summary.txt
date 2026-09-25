@@ -76,6 +76,8 @@ HOW OUR BUILD DOES IT (see Lab3_Circuit.png)
                 Both sources to GND. Q1 and Q2 are 2N7000 MOSFETs.
   Capture     TIM3 CH1 on PA6, 1 us per count, interrupt on both edges
   LED         PA5 (D13) -> 330 ohm -> external LED -> GND, TIM2 CH1 PWM at 1 kHz
+  Shield LEDs D1A/D2A/D3A (anodes) -> PA8/PA9/PA10, D1C/D2C/D3C (cathodes) -> GND.
+              TIM1 CH1-CH3 PWM, same brightness as the orange LED.
   Power       5V to the sensor VCC, all grounds common
   Console     printf -> USART2 (PA2) over the USB cable, 9600 baud 8N1
 

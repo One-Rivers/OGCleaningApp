@@ -106,6 +106,30 @@ void LED_PWM_init(void){
     TIM2->CR1 = 1;													/* go*/
 }
 
+/***| Shield_PWM_init(void) |*********************************************************************************************************************************************************/
+/* PA8, PA9 and PA10 on AF1 into TIM1 CH1-CH3, same 1kHz PWM as the orange LED so all 4 LEDs dim together.
+   TIM1 is an advanced timer so it also needs MOE in BDTR or the pins just sit there doing nothing.
+**************************************************************************************************************************************************************************************/
+void Shield_PWM_init(void){
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    GPIOA->MODER  &= ~(uint32_t)((3<<(2*Hex2Bit(BLUE)))|(3<<(2*Hex2Bit(GREEN)))|(3<<(2*Hex2Bit(RED))));		/* clear PA8-PA10 modes*/
+    GPIOA->MODER  |=  (uint32_t)((2<<(2*Hex2Bit(BLUE)))|(2<<(2*Hex2Bit(GREEN)))|(2<<(2*Hex2Bit(RED))));		/* all alternate function*/
+    GPIOA->AFR[1] &= ~(uint32_t)((15<<(4*(Hex2Bit(BLUE)-8)))|(15<<(4*(Hex2Bit(GREEN)-8)))|(15<<(4*(Hex2Bit(RED)-8))));	/* pins 8+ live in AFR[1]*/
+    GPIOA->AFR[1] |=  (uint32_t)((1<<(4*(Hex2Bit(BLUE)-8)))|(1<<(4*(Hex2Bit(GREEN)-8)))|(1<<(4*(Hex2Bit(RED)-8))));	/* AF1 = TIM1*/
+
+    RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;								/* TIM1 clock on, it's on APB2*/
+    TIM1->PSC = 16 - 1;												/* 1MHz*/
+    TIM1->ARR = PWM_Period - 1;										/* 1kHz, matches the orange LED*/
+    TIM1->CNT = 0;
+    TIM1->CCMR1 = (6<<4)|(1<<3)|(6<<12)|(1<<11);					/* CH1 + CH2 PWM mode 1 with preload*/
+    TIM1->CCMR2 = (6<<4)|(1<<3);									/* CH3 PWM mode 1 with preload*/
+    TIM1->CCR1 = 0; TIM1->CCR2 = 0; TIM1->CCR3 = 0;					/* all off to start*/
+    TIM1->CCER |= (1<<0)|(1<<4)|(1<<8);								/* CH1-CH3 outputs on*/
+    if(Shield_Active_Low){TIM1->CCER |= (1<<1)|(1<<5)|(1<<9);}		/* flip them if the shield sinks current*/
+    TIM1->BDTR |= (1<<15);											/* MOE, the magic advanced timer on switch*/
+    TIM1->CR1 = 1;													/* go*/
+}
+
 /***| Send_Trigger(void) |*************************************************************************************************************************************************************/
 /* Clears the done flag then gives the sensor its 10us high pulse so it sends out a ping.
    Trig_High/Trig_Low handle Shifter_Inverts, with the current wiring PA1 just pulses high like normal.
@@ -138,11 +162,15 @@ float Echo_To_Inches(uint32_t width){
 }
 
 /***| LED_Set_Duty(uint8_t percent) |**************************************************************************************************************************************************/
-/* 0 to 100 percent into CCR1. 100% puts CCR1 above ARR so the pin just stays high, full blast!
+/* 0 to 100 percent into the orange LED (TIM2 CCR1) and all 3 shield LEDs (TIM1 CCR1-3) at once.
+   100% puts CCR above ARR so the pins just stay on, full blast!
 **************************************************************************************************************************************************************************************/
 void LED_Set_Duty(uint8_t percent){
     if(percent > 100){percent = 100;}								/* no cheating past 100*/
-    TIM2->CCR1 = (percent*PWM_Period)/100;
+    TIM2->CCR1 = (percent*PWM_Period)/100;							/* orange*/
+    TIM1->CCR1 = TIM2->CCR1;										/* blue, same brightness*/
+    TIM1->CCR2 = TIM2->CCR1;										/* green*/
+    TIM1->CCR3 = TIM2->CCR1;										/* red*/
 }
 
 /***| LED_Proximity(float inches, uint8_t *blinkptr) |*********************************************************************************************************************************/

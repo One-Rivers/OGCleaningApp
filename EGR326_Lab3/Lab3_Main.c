@@ -2,6 +2,7 @@
    The HC-SR04 gets pinged every 250ms and TIM3 input capture on PA6 times the echo to get the distance in inches.
    Every 2 seconds that distance gets printed out USART2 to the ST-Link COM port at 9600 baud.
    The external LED on PA5 (through 330 ohm) runs off TIM2 PWM, 10% brightness per inch up to 9 inches, off at 10 and up, and a 2Hz blink under 1 inch.
+   The 3 shield LEDs (D1A/D2A/D3A to PA8/PA9/PA10, D1C/D2C/D3C to GND) run off TIM1 and copy the orange one.
    TRIG comes straight off PA1 since 3.3V is plenty for the sensor.
    ECHO goes through a 1k into two 2N7000s back to back so PA6 only ever sees 3.3V and the signal still isnt flipped.
 */
@@ -17,7 +18,8 @@ int main(void){
     Systick_init();													/* Systick Initialization*/
     Trigger_init();													/* PA1 trigger out*/
     Echo_Capture_init();											/* PA6 + TIM3 capture*/
-    LED_PWM_init();													/* PA5 + TIM2 PWM*/
+    LED_PWM_init();													/* PA5 + TIM2 PWM, orange LED*/
+    Shield_PWM_init();												/* PA8-PA10 + TIM1 PWM, shield LEDs*/
     __enable_irq();													/* interrupts on*/
     Systick_ms_delay(50);											/* let the sensor wake up*/
 
