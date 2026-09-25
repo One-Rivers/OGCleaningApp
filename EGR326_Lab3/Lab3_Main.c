@@ -1,13 +1,9 @@
-/* EGR326 Lab 3 - Capture and Compare with the STM32F446
-   Juan Rios
-   Part I:  HC-SR04 proximity sensor, TIM3 input capture measures the echo, prints distance every 2 sec
-            printf goes out USART2 (PA2) to the ST-Link COM port, 9600 baud 8N1
-   Part II: LED on TIM2 PWM gets brighter/dimmer with distance, blinks at 2Hz under 1 inch
-   Wiring:  PA1 -> TRIG straight, 3.3V is plenty for the sensor
-            ECHO -> Q1 gate, Q1 drain -> Q2 gate (10k up to 5V)
-            Q2 drain -> PA6 (10k up to 3V3), both sources to GND
-            LED1C (D1) or LED3C (D3) -> PA5, sensor on 5V
-            Q1 flips ECHO and Q2 flips it back, so Shifter_Inverts is 0
+/* EGR326 Lab 3 - Capture and Compare with the STM32F446, Juan Rios.
+   The HC-SR04 gets pinged every 250ms and TIM3 input capture on PA6 times the echo to get the distance in inches.
+   Every 2 seconds that distance gets printed out USART2 to the ST-Link COM port at 9600 baud.
+   The LED on PA5 runs off TIM2 PWM, 10% brightness per inch up to 9 inches, off at 10 and up, and a 2Hz blink under 1 inch.
+   TRIG comes straight off PA1 since 3.3V is plenty for the sensor.
+   ECHO goes through two 2N7000s back to back so PA6 only ever sees 3.3V and the signal still isnt flipped.
 */
 #include "stm32f4xx.h"
 #include <stdio.h>

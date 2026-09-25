@@ -146,12 +146,10 @@ void LED_Set_Duty(uint8_t percent){
 }
 
 /***| LED_Proximity(float inches, uint8_t *blinkptr) |*********************************************************************************************************************************/
-/* Part II mapping:
-   under 1 inch      -> blink at max, flips every call (250ms) so it's 2Hz
-   ~1 inch           -> 100%
-   2 to 9 inches     -> inches x 10%
-   10 inches and up  -> off
-   blinkptr remembers if the blink was on or off last time.
+/* Turns the distance into LED brightness for Part II. Under 1 inch it flips between full on and off
+   every call, and since main calls it every 250ms that comes out to a 2Hz blink. Around 1 inch is 100%,
+   2 to 9 inches gets inches x 10%, and 10 inches or more just turns it off. blinkptr remembers if the
+   blink was on or off last time.
 **************************************************************************************************************************************************************************************/
 void LED_Proximity(float inches, uint8_t *blinkptr){
     uint8_t rounded;
